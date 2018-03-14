@@ -26,14 +26,20 @@ var location = Schema({
             min: -180
         })
     },
-    first: {
+    name: {
+        type: String,
+        validator: types.string({
+            length: 200
+        })
+    },
+    line1: {
         type: String,
         required: true,
         validator: types.string({
             length: 200
         })
     },
-    second: {
+    line2: {
         type: String,
         validator: types.string({
             length: 200
