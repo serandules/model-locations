@@ -91,8 +91,8 @@ var location = Schema({
 
 location.plugin(mongins);
 location.plugin(mongins.user);
-location.plugin(mongins.createdAt);
-location.plugin(mongins.updatedAt);
+location.plugin(mongins.createdAt());
+location.plugin(mongins.updatedAt());
 
 mongutils.ensureIndexes(location, [
     {createdAt: 1, _id: 1}
