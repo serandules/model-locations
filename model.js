@@ -89,7 +89,7 @@ var location = Schema({
     }
 }, {collection: 'locations'});
 
-location.plugin(mongins);
+location.plugin(mongins());
 location.plugin(mongins.user);
 location.plugin(mongins.createdAt());
 location.plugin(mongins.updatedAt());
