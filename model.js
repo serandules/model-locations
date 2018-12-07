@@ -2,9 +2,9 @@ var log = require('logger')('model-locations');
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var validators = require('validators');
 var mongins = require('mongins');
-var mongutils = require('mongutils');
+var validators = require('validators');
+var model = require('model');
 
 var types = validators.types;
 var requires = validators.requires;
@@ -94,7 +94,7 @@ location.plugin(mongins.user);
 location.plugin(mongins.createdAt());
 location.plugin(mongins.updatedAt());
 
-mongutils.ensureIndexes(location, [
+model.ensureIndexes(location, [
     {createdAt: 1, _id: 1}
 ]);
 
