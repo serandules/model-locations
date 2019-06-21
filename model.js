@@ -9,7 +9,7 @@ var model = require('model');
 var types = validators.types;
 var requires = validators.requires;
 
-var location = Schema({
+var schema = Schema({
     latitude: {
         type: Number,
         required: true,
@@ -89,16 +89,25 @@ var location = Schema({
     }
 }, {collection: 'locations'});
 
-location.plugin(mongins());
-location.plugin(mongins.user);
-location.plugin(mongins.createdAt());
-location.plugin(mongins.updatedAt());
+schema.plugin(mongins());
+schema.plugin(mongins.user);
+schema.plugin(mongins.permissions({
+    workflow: 'model'
+}));
+schema.plugin(mongins.status({
+    workflow: 'model'
+}));
+schema.plugin(mongins.visibility({
+    workflow: 'model'
+}));
+schema.plugin(mongins.createdAt());
+schema.plugin(mongins.updatedAt());
 
-model.ensureIndexes(location, [
+model.ensureIndexes(schema, [
     {createdAt: 1, _id: 1}
 ]);
 
-location.statics.tagger = {
+schema.statics.tagger = {
     validator: ['postal', 'city', 'district', 'province', 'state', 'country'],
     value: function (location, done) {
         var Locations = mongoose.model('locations');
@@ -133,4 +142,4 @@ location.statics.tagger = {
     }
 };
 
-module.exports = mongoose.model('locations', location);
+module.exports = mongoose.model('locations', schema);
